@@ -34,7 +34,6 @@ import org.apache.hc.core5.http.config.Registry;
 import org.apache.hc.core5.http.config.RegistryBuilder;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.ssl.TrustStrategy;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -44,6 +43,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 /**
@@ -77,8 +77,8 @@ public class JsonToGrpcApplicationTests {
 		String response = restTemplate.postForEntity("https://localhost:" + this.gatewayPort + "/json/hello",
 				"{\"firstName\":\"Duff\", \"lastName\":\"McKagan\"}", String.class).getBody();
 
-		Assertions.assertThat(response).isNotNull();
-		Assertions.assertThat(response).contains("{\"greeting\":\"Hello, Duff McKagan\"}");
+		assertThat(response).isNotNull();
+		assertThat(response).contains("{\"greeting\":\"Hello, Duff McKagan\"}");
 	}
 
 	private RestTemplate createUnsecureClient() {

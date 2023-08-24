@@ -18,8 +18,9 @@ package org.springframework.cloud.gateway.filter.factory.cache.postprocessor;
 
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.cloud.gateway.filter.factory.cache.CachedResponse;
@@ -57,7 +58,7 @@ class SetResponseHeadersAfterCacheExchangeMutatorTest {
 
 		toTest.accept(inputExchange, cachedResponse);
 
-		Assertions.assertThat(inputExchange.getResponse().getHeaders()).containsEntry("X-Header-1",
+		assertThat(inputExchange.getResponse().getHeaders()).containsEntry("X-Header-1",
 				List.of("Value-cached"));
 	}
 
@@ -69,7 +70,7 @@ class SetResponseHeadersAfterCacheExchangeMutatorTest {
 
 		toTest.accept(inputExchange, cachedResponse);
 
-		Assertions.assertThat(inputExchange.getResponse().getHeaders()).doesNotContainKey("X-Header-1");
+		assertThat(inputExchange.getResponse().getHeaders()).doesNotContainKey("X-Header-1");
 	}
 
 }

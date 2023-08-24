@@ -19,7 +19,6 @@ package org.springframework.cloud.gateway.tests.http2;
 import java.time.Duration;
 
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Hooks;
@@ -60,7 +59,7 @@ public class Http2ApplicationTests {
 		String uri = "https://localhost:" + port + "/myprefix/hello";
 		String expected = "Hello";
 		assertResponse(uri, expected);
-		Assertions.assertThat(output).contains("Negotiated application-level protocol [h2]", "PRI * HTTP/2.0");
+		assertThat(output).contains("Negotiated application-level protocol [h2]", "PRI * HTTP/2.0");
 	}
 
 	public static void assertResponse(String uri, String expected) {

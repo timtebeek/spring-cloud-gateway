@@ -16,7 +16,6 @@
 
 package org.springframework.cloud.gateway.filter.ratelimit;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,6 +31,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author Spencer Gibb
@@ -55,7 +55,7 @@ public class RedisRateLimiterConfigTests {
 
 	@Test
 	public void shouldThrowAnErrorWhenReplenishRateIsHigherThanBurstCapacity() {
-		Assertions.assertThatThrownBy(() -> new RedisRateLimiter(10, 5)).isInstanceOf(IllegalArgumentException.class);
+		assertThatThrownBy(() -> new RedisRateLimiter(10, 5)).isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test

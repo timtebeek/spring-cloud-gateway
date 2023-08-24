@@ -279,7 +279,7 @@ public class ProductionConfigurationTests {
 				.getBody();
 
 		assertThat(headers).containsKey("forwarded");
-		assertThat(headers.get("forwarded").size()).isEqualTo(1);
+        assertThat(headers.get("forwarded")).hasSize(1);
 		assertThat(headers.get("forwarded").get(0)).isEqualTo("host=localhost:" + port);
 	}
 

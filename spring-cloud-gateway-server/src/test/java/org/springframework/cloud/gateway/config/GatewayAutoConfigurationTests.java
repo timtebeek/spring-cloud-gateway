@@ -137,8 +137,7 @@ public class GatewayAutoConfigurationTests {
 					assertThat(httpClient.configuration().isAcceptGzip()).isTrue();
 					assertThat(httpClient.configuration().loggingHandler()).isNotNull();
 					assertThat(httpClient.configuration().options()).containsKey(ChannelOption.CONNECT_TIMEOUT_MILLIS);
-					assertThat(httpClient.configuration().options().get(ChannelOption.CONNECT_TIMEOUT_MILLIS))
-							.isEqualTo(10);
+            assertThat(httpClient.configuration().options()).containsEntry(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10);
 
 					assertThat(factory.connectionProvider).isNotNull();
 					// fixed pool

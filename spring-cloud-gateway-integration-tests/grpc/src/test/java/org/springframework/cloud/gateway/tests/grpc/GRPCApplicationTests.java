@@ -26,7 +26,6 @@ import io.grpc.ManagedChannel;
 import io.grpc.StatusRuntimeException;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +34,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static io.grpc.Status.FAILED_PRECONDITION;
 import static io.grpc.netty.NegotiationType.TLS;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 /**
@@ -61,7 +61,7 @@ public class GRPCApplicationTests {
 		final HelloResponse response = HelloServiceGrpc.newBlockingStub(channel)
 				.hello(HelloRequest.newBuilder().setFirstName("Sir").setLastName("FromClient").build());
 
-		Assertions.assertThat(response.getGreeting()).isEqualTo("Hello, Sir FromClient");
+		assertThat(response.getGreeting()).isEqualTo("Hello, Sir FromClient");
 	}
 
 	private ManagedChannel createSecuredChannel(int port) throws SSLException {
@@ -81,8 +81,8 @@ public class GRPCApplicationTests {
 					.hello(HelloRequest.newBuilder().setFirstName("failWithRuntimeException!").build());
 		}
 		catch (StatusRuntimeException e) {
-			Assertions.assertThat(FAILED_PRECONDITION.getCode()).isEqualTo(e.getStatus().getCode());
-			Assertions.assertThat("Invalid firstName").isEqualTo(e.getStatus().getDescription());
+			assertThat(FAILED_PRECONDITION.getCode()).isEqualTo(e.getStatus().getCode());
+			assertThat("Invalid firstName").isEqualTo(e.getStatus().getDescription());
 		}
 	}
 

@@ -16,7 +16,6 @@
 
 package org.springframework.cloud.gateway.tests.http2.nossl;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +32,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.util.TestSocketUtils;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import static org.springframework.cloud.gateway.tests.http2.Http2ApplicationTests.assertResponse;
 
@@ -68,7 +68,7 @@ public class NosslTests {
 			String uri = "https://localhost:" + port + "/nossl";
 			String expected = "nossl";
 			assertResponse(uri, expected);
-			Assertions.assertThat(output).doesNotContain("PRI * HTTP/2.0");
+			assertThat(output).doesNotContain("PRI * HTTP/2.0");
 		}
 	}
 

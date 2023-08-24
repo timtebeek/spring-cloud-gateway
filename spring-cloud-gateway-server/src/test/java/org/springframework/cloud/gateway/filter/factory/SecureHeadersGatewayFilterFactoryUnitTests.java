@@ -16,7 +16,6 @@
 
 package org.springframework.cloud.gateway.filter.factory;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -160,7 +159,7 @@ public class SecureHeadersGatewayFilterFactoryUnitTests {
 	@Test
 	public void toStringFormat() {
 		GatewayFilter filter = new SecureHeadersGatewayFilterFactory(new SecureHeadersProperties()).apply(new Config());
-		Assertions.assertThat(filter.toString()).contains("SecureHeaders");
+		assertThat(filter.toString()).contains("SecureHeaders");
 	}
 
 }

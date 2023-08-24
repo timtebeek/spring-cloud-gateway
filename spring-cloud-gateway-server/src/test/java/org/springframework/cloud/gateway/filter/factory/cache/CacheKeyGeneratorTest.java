@@ -214,7 +214,7 @@ class CacheKeyGeneratorTest {
 		List<Exception> exceptions = executeInParallel(Executors.newFixedThreadPool(numberOfThreads), numberOfThreads,
 				() -> cacheKeyGenerator.generateKey(request));
 
-		assertThat(exceptions.size()).isEqualTo(0);
+        assertThat(exceptions).isEmpty();
 	}
 
 	private List<Exception> executeInParallel(Executor executor, int nThreads, Runnable action)

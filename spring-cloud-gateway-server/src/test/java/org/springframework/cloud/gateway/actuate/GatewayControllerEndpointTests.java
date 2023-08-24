@@ -88,7 +88,7 @@ public class GatewayControllerEndpointTests {
 				.expectStatus().isOk().expectBodyList(Map.class).consumeWith(result -> {
 					List<Map> responseBody = result.getResponseBody();
 					assertThat(responseBody).isNotNull();
-					assertThat(responseBody.size()).isEqualTo(1);
+            assertThat(responseBody).hasSize(1);
 					assertThat(responseBody).isNotEmpty();
 				});
 	}

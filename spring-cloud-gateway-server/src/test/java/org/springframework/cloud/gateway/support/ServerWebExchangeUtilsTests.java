@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import org.springframework.core.io.buffer.DataBuffer;
@@ -33,6 +32,7 @@ import org.springframework.web.reactive.function.server.HandlerStrategies;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.CACHED_REQUEST_BODY_ATTR;
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.expand;
 
@@ -56,7 +56,7 @@ public class ServerWebExchangeUtilsTests {
 	@Test
 	public void missingVarThrowsException() {
 		MockServerWebExchange exchange = mockExchange(Collections.emptyMap());
-		Assertions.assertThatThrownBy(() -> expand(exchange, "my-{foo}-{baz}"))
+		assertThatThrownBy(() -> expand(exchange, "my-{foo}-{baz}"))
 				.isInstanceOf(IllegalArgumentException.class);
 	}
 
@@ -91,7 +91,7 @@ public class ServerWebExchangeUtilsTests {
 
 		DataBuffer dataBufferAfterCached = exchange.getAttribute(CACHED_REQUEST_BODY_ATTR);
 
-		Assertions.assertThat(dataBufferBeforeCaching).isEqualTo(dataBufferAfterCached);
+		assertThat(dataBufferBeforeCaching).isEqualTo(dataBufferAfterCached);
 	}
 
 	private MockServerWebExchange mockExchange(Map<String, String> vars) {
@@ -108,7 +108,7 @@ public class ServerWebExchangeUtilsTests {
 			request = MockServerHttpRequest.post("/post").body("post body");
 		}
 
-		Assertions.assertThat(request).as("Method was not one of GET or POST").isNotNull();
+		assertThat(request).as("Method was not one of GET or POST").isNotNull();
 
 		MockServerWebExchange exchange = MockServerWebExchange.from(request);
 		ServerWebExchangeUtils.putUriTemplateVariables(exchange, vars);

@@ -16,7 +16,6 @@
 
 package org.springframework.cloud.gateway.handler;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -25,6 +24,8 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import org.springframework.boot.test.system.CapturedOutput;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.route.Route;
@@ -57,8 +58,8 @@ public class RoutePredicateHandlerMappingTests {
 		final Mono<Route> routeMono = mapping.lookupRoute(Mockito.mock(ServerWebExchange.class));
 
 		StepVerifier.create(routeMono.map(Route::getId)).expectNext("routeTrue").verifyComplete();
-		Assertions.assertTrue(capturedOutput.getOut().contains("Error applying predicate for route: routeFail"));
-		Assertions.assertTrue(capturedOutput.getOut().contains("java.lang.IllegalStateException: boom"));
+        assertThat(capturedOutput.getOut()).contains("Error applying predicate for route: routeFail");
+        assertThat(capturedOutput.getOut()).contains("java.lang.IllegalStateException: boom");
 	}
 
 	@Test
@@ -80,11 +81,11 @@ public class RoutePredicateHandlerMappingTests {
 
 		StepVerifier.create(routeMono.map(Route::getId)).expectNext("routeTrue").verifyComplete();
 
-		Assertions.assertTrue(capturedOutput.getOut().contains("Error applying predicate for route: routeError"));
-		Assertions.assertTrue(capturedOutput.getOut().contains("java.lang.IllegalStateException: boom1"));
+        assertThat(capturedOutput.getOut()).contains("Error applying predicate for route: routeError");
+        assertThat(capturedOutput.getOut()).contains("java.lang.IllegalStateException: boom1");
 
-		Assertions.assertTrue(capturedOutput.getOut().contains("Error applying predicate for route: routeFail"));
-		Assertions.assertTrue(capturedOutput.getOut().contains("java.lang.IllegalStateException: boom2"));
+        assertThat(capturedOutput.getOut()).contains("Error applying predicate for route: routeFail");
+        assertThat(capturedOutput.getOut()).contains("java.lang.IllegalStateException: boom2");
 	}
 
 }

@@ -83,7 +83,7 @@ public class RedisRouteDefinitionRepositoryTests {
 		List<RouteDefinition> routeDefinitions = redisRouteDefinitionRepository.getRouteDefinitions().collectList()
 				.block();
 
-		assertThat(routeDefinitions.size()).isEqualTo(1);
+        assertThat(routeDefinitions).hasSize(1);
 		assertThat(routeDefinitions.get(0)).isEqualTo(testRouteDefinition);
 	}
 
@@ -98,14 +98,14 @@ public class RedisRouteDefinitionRepositoryTests {
 				.block();
 		String routeId = routeDefinitions.get(0).getId();
 
-		// Assert that route has been added.
-		assertThat(routeDefinitions.size()).isEqualTo(1);
+        // Assert that route has been added.
+        assertThat(routeDefinitions).hasSize(1);
 
 		// Delete route from repository
 		redisRouteDefinitionRepository.delete(Mono.just(routeId)).block();
 
-		// Assert that route has been removed.
-		assertThat(redisRouteDefinitionRepository.getRouteDefinitions().collectList().block().size()).isEqualTo(0);
+        // Assert that route has been removed.
+        assertThat(redisRouteDefinitionRepository.getRouteDefinitions().collectList().block()).isEmpty();
 	}
 
 	private RouteDefinition defaultTestRoute() {
